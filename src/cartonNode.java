@@ -7,8 +7,6 @@ public class cartonNode {
     private boolean isEgg;
     private int x;
     private int y;
-    private boolean isBad;
-    private boolean isGood;
     private char cartonChar;
 
     public cartonNode(char isEgg, int x, int y){
@@ -35,8 +33,6 @@ public class cartonNode {
     public void removeEgg(){
         this.isEgg = false;
         this.cartonChar = '.';
-        this.isBad = false;
-        this.isGood = false;
     }
 
     public String toString(){
@@ -44,9 +40,9 @@ public class cartonNode {
     }
 
     public cartonNode clone(){
-        char charClone = (Character) cartonChar;
-        int x = (Integer) this.x;
-        int y = (Integer) this.y;
+        char charClone = cartonChar;
+        int x = this.x;
+        int y = this.y;
         cartonNode clone = new cartonNode(charClone, x, y);
         return  clone;
 

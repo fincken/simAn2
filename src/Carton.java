@@ -24,10 +24,8 @@ public class Carton {
             createCarton(m, n);
         }
         else{
-            this.carton=new ArrayList<ArrayList<cartonNode>>();
+            this.carton=new ArrayList<>();
         }
-
-
     }
 
     public void genStart(int m, int n){
@@ -49,9 +47,9 @@ public class Carton {
     }
 
     public void createCarton(int m, int n){
-        this.carton = new ArrayList<ArrayList<cartonNode>>();
+        this.carton = new ArrayList<>();
         for (int i = 0; i < m; i++) {
-            carton.add(i,new ArrayList<cartonNode>());
+            carton.add(i,new ArrayList<>());
             for (int j = 0; j < n; j++) {
                 carton.get(i).add(new cartonNode(init.get(i*n+j), j,i));
             }
@@ -62,9 +60,7 @@ public class Carton {
         return this.xMax;
     }
 
-    public int getyMax(){
-        return this.yMax;
-    }
+    public int getyMax(){return this.yMax;}
 
     public cartonNode getNode(int x, int y){
         return carton.get(y).get(x);

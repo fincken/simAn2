@@ -99,6 +99,6 @@ public class SimAn {
     }
 
     public static void main(String[] args){
-        SimAn sim = new SimAn(5,5,2,0.9,3,0.001);
+        SimAn sim = new SimAn(5,5,3,0.9,3,0.001);
     }
 }

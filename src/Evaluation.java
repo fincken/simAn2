@@ -22,11 +22,13 @@ public class Evaluation {
                 if(node.isEgg())
                     hCount += 1;
             }
-            if(hCount<=k){
-                totalScore += 50 + hCount*200;
+            if(hCount>k)
+                totalScore -= 3.5*hCount;
+            else if(hCount>=1){
+                totalScore += hCount;
             }
             else
-                totalScore-= hCount*1000;
+                totalScore+= 0.1;
         }
 
         //Checks vertically if there are more than k eggs in a row
@@ -36,10 +38,13 @@ public class Evaluation {
                 if (board.get(j).get(i).isEgg())
                     vCount += 1;
             }
-            if(vCount<=k)
-                totalScore += 50 + vCount*200;
+            if(vCount>k)
+                totalScore -= 3.5*vCount;
+            else if(vCount>=1){
+                totalScore += vCount;
+            }
             else
-                totalScore -= vCount*1000;
+                totalScore+= 0.1;
 
         }
 
@@ -54,10 +59,13 @@ public class Evaluation {
                 xCount++;
                 yCount--;
             }
-            if(d1Count<=k)
-                totalScore += 50 + d1Count*200;
+            if(d1Count>k)
+                totalScore -= 3.5*d1Count;
+            else if(d1Count>=1){
+                totalScore += d1Count;
+            }
             else
-                totalScore -= d1Count*1000;
+                totalScore+= 0.1;
         }
 
         for (int i = board.size()-2,j=0 ; i >=0 ; i--,j++) {
@@ -70,10 +78,13 @@ public class Evaluation {
                 xCount--;
                 yCount++;
             }
-            if(d2Count<=k)
-                totalScore += 50 + d2Count*200;
+            if(d2Count>k)
+                totalScore -= 3.5*d2Count;
+            else if(d2Count>=1){
+                totalScore += d2Count;
+            }
             else
-                totalScore -= d2Count*1000;
+                totalScore+= 0.1;
         }
         for (int i = 0; i < board.size() ; i++) {
             int d3Count = 0;
@@ -85,10 +96,13 @@ public class Evaluation {
                 xCount++;
                 yCount++;
             }
-            if(d3Count <= k)
-                totalScore += 50 + d3Count*200;
+            if(d3Count>k)
+                totalScore -= 3.5*d3Count;
+            else if(d3Count>=1){
+                totalScore += d3Count;
+            }
             else
-                totalScore -= d3Count*1000;
+                totalScore+= 0.1;
         }
 
         for (int i = board.size()-2,j=1; i >=0 ; i--,j++) {
@@ -101,12 +115,17 @@ public class Evaluation {
                 xCount--;
                 yCount--;
             }
-            if(d4Count<=k)
-                totalScore += 50 + d4Count*200;
+            if(d4Count>k)
+                totalScore -= 3.5*d4Count;
+            else if(d4Count>=1){
+                totalScore += d4Count;
+            }
             else
-                totalScore -= d4Count*1000;
+                totalScore+= 0.1;
         }
-    carton.setFScore(totalScore);
+        //Approksimert maxScore ut ifra poenggivningssystemer vårt. (ikke 100% nøyaktig, men veldig nære)
+        double maxScore = ((carton.getxMax()+carton.getyMax())*2*k+(((carton.getxMax()+carton.getxMax()-k))*0.1));
+        carton.setFScore(totalScore/maxScore);
     }
 
 
