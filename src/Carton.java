@@ -65,6 +65,7 @@ public class Carton {
     public cartonNode getNode(int x, int y){
         return carton.get(y).get(x);
     }
+
     public String toString(){
         String board = "";
         for (int i = 0; i < this.carton.size(); i++) {

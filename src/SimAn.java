@@ -14,21 +14,27 @@ public class SimAn {
     private double dT;
 
     public SimAn(int m,int n, int k, double fTarget, double temperature, double dT){
+        simulate(m, n, k, fTarget, temperature, dT);
+    }
+
+
+    public void simulate(int m,int n, int k, double fTarget, double temperature, double dT){
         currentCarton = new Carton(m, n, k);
         this.maxEggs = k;
         this.fTarget = fTarget;
         this.temperature = temperature;
         this.dT = dT;
-        simulate();
-    }
-
-
-    public void simulate(){
         Evaluation ev = new Evaluation(maxEggs);
-        System.out.println(currentCarton);
         ev.legalCheck(currentCarton);
-        System.out.println(currentCarton.getFScore());
+        if(currentCarton.getFScore()<0)
+            simulate(m, n, k, fTarget, temperature, dT);
+        System.out.println("Starting carton: \n" + currentCarton);
+        System.out.println("Starting score: " + currentCarton.getFScore() + "\n\n");
         while(temperature >0){
+            if(currentCarton.getFScore()>this.fTarget){
+                totalBoards.add(currentCarton);
+                break;
+            }
             createNeighborBoards();
             for (Carton c : neighbours){
                 ev.legalCheck(c);
@@ -63,9 +69,17 @@ public class SimAn {
 
             temperature -= dT;
         }
-        ev.legalCheck(currentCarton);
-        System.out.println(currentCarton.toString());
-        System.out.println(currentCarton.getFScore());
+
+        double bestScore = 0;
+        int index = 0;
+        for (int i = 0; i < totalBoards.size(); i++) {
+            if(totalBoards.get(i).getFScore()>bestScore){
+                bestScore = totalBoards.get(i).getFScore();
+                index = i;
+            }
+        }
+        System.out.println("The best board is: \n" + totalBoards.get(index).toString());
+        System.out.println("with a score of: " + totalBoards.get(index).getFScore());
 
 
     }
@@ -99,6 +113,6 @@ public class SimAn {
     }
 
     public static void main(String[] args){
-        SimAn sim = new SimAn(5,5,3,0.9,3,0.001);
+        SimAn sim = new SimAn(5,5,2,0.85,3,0.001);
     }
 }
